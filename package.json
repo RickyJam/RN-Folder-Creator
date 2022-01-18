@@ -19,8 +19,7 @@
         "command": "folder-creator.create",
         "title": "New Component",
         "category": "folder-creator",
-        "enablement": "true",
-        "shortTitle": "New C"
+        "shortTitle": "New Component"
       }
     ],
     "menus": {
