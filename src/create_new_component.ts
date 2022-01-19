@@ -1,6 +1,8 @@
-const { log } = require("console");
 const fileSystem = require("fs");
-const { exit } = require("process");
+import { exit } from "process";
+import * as vscode from 'vscode';
+
+const outputChannel = vscode.window.createOutputChannel("FolderCreator");
 
 function _generateComponentContent(componentName: String): String {
   return "" +
@@ -35,13 +37,15 @@ describe('${componentName}', () => {
 `;
 }
 
-async function _createFolder(componentDir: String) {  
+async function _createFolder(componentDir: String) {
+  outputChannel.appendLine(`Creazione directory ${componentDir}`);
   await fileSystem.mkdir(componentDir, (err: any) => {
     if (err) {
-      log(`Errore!!! Path non esistente: ${componentDir}`);
-      log(`Rivedere il path e rilanciare il comando!`);
+      outputChannel.appendLine(`Creazione directory fallita, uscita`);
+      outputChannel.appendLine(err);
       exit(1);
     }
+    outputChannel.appendLine(`Creazione directory Riuscita`);
   });
 }
 
@@ -51,14 +55,26 @@ async function _createJsFile(
   componentContent: String,
   extensionType: String
 ) {
+  outputChannel.appendLine(`Scrittura file ${componentName}${extensionType}`);
   await fileSystem.writeFile(
     `${componentDir}/${componentName}${extensionType}`,
     componentContent,
-    () => {}
+    (err: any) => {
+      if(err) {
+        outputChannel.appendLine(`Scrittura file fallita, uscita!`);
+        outputChannel.appendLine(err);
+        exit(1);
+      }
+      outputChannel.appendLine(`Scrittura file ${componentName}`);
+    }
   );
 }
 
 export default async function createComponentFolder(componentName: String, basePath: String) {
+  //TODO andrebbe fatta la dispose alla fine?
+  outputChannel.show(true);
+  outputChannel.clear();
+
   const componentInfo = {
     componentDir: `${basePath}/${componentName}`,
     componentContent: _generateComponentContent(componentName),
