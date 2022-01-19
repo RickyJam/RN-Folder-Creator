@@ -45,7 +45,7 @@ async function _createFolder(componentDir: String) {
       outputChannel.appendLine(err);
       exit(1);
     }
-    outputChannel.appendLine(`Creazione directory Riuscita`);
+    outputChannel.appendLine(`Creazione directory - OK`);
   });
 }
 
@@ -65,7 +65,7 @@ async function _createJsFile(
         outputChannel.appendLine(err);
         exit(1);
       }
-      outputChannel.appendLine(`Scrittura file ${componentName}`);
+      outputChannel.appendLine(`Scrittura file ${componentName}${extensionType} - OK `);
     }
   );
 }

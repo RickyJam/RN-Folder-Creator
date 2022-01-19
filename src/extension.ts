@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import createComponentFolder from './create_new_component';
 
 async function getUserInput(myplaceholder: string): Promise<String> {
-    const userInputWindow = await vscode.window.showInputBox({ placeHolder: myplaceholder, prompt: 'Here is the prompt' });
+    const userInputWindow = await vscode.window.showInputBox({ placeHolder: myplaceholder, prompt: 'Nome Componente:' });
 	if(!userInputWindow || userInputWindow === ""){
 		vscode.window.showInformationMessage('Nome Componente non inserito!');
 		throw new Error("");
