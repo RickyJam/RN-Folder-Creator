@@ -1,7 +1,7 @@
 {
   "name": "folder-creator",
   "displayName": "RN Folder Creator",
-  "description": "Estensione per creare nuove folder RN comompleta di componente e file di test",
+  "description": "Estensione per creare nuove folder RN completa di componente e file di test",
   "version": "0.0.1",
   "repository": {
     "type": "git",
