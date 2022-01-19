@@ -36,6 +36,8 @@ describe('${componentName}', () => {
 }
 
 async function _createFolder(componentDir: String) {
+  log(`Creazione folder ${componentDir}`);
+  
   await fileSystem.mkdir(componentDir, (err: any) => {
     if (err) {
       log(`Errore!!! Path non esistente: ${componentDir}`);
@@ -43,6 +45,8 @@ async function _createFolder(componentDir: String) {
       exit(1);
     }
   });
+
+  log(`Folder Creata!`);
 }
 
 async function _createJsFile(
@@ -70,6 +74,9 @@ export default async function createComponentFolder(componentName: String, baseP
     jsTestExtension: ".test.js",
     testContent: _generateTestContent(componentName),
   };
+
+  console.log(componentInfo);
+  console.log(testDetail);
 
   await _createFolder(componentInfo.componentDir);
   await _createFolder(testDetail.testDir);

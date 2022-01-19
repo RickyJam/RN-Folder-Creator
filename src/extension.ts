@@ -4,7 +4,8 @@ import createComponentFolder from './create_new_component';
 async function getUserInput(myplaceholder: string): Promise<String> {
     const userInputWindow = await vscode.window.showInputBox({ placeHolder: myplaceholder, prompt: 'Here is the prompt' });
 	if(!userInputWindow || userInputWindow === ""){
-		throw new Error("Nome Componente non inserito");
+		vscode.window.showInformationMessage('Nome Componente non inserito!');
+		throw new Error("");
 	} else {
 		return userInputWindow;
 	}
@@ -12,10 +13,10 @@ async function getUserInput(myplaceholder: string): Promise<String> {
 
 export function activate(context: vscode.ExtensionContext) {
 	
-	let disposable = vscode.commands.registerCommand('folder-creator.create', async (uri: vscode.Uri) => {
-		vscode.window.showInformationMessage('Hai richiesto di creare una nuova folder!');
-		const componentName = await getUserInput("Nome componente:");
-		createComponentFolder(componentName, uri.fsPath);
+	let disposable = vscode.commands.registerCommand('folder-creator.create', (uri: vscode.Uri) => {
+		getUserInput("Nome componente:").then((componentName) => {
+			createComponentFolder(componentName, uri.fsPath);
+		});
 	});
 
 	context.subscriptions.push(disposable);
