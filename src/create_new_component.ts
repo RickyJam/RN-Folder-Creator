@@ -45,7 +45,7 @@ async function _createFolder(componentDir: String) {
       outputChannel.appendLine(err);
       exit(1);
     }
-    outputChannel.appendLine(`Creazione directory - OK`);
+    outputChannel.appendLine(`Creazione directory ${componentDir} ---- OK`);
   });
 }
 
